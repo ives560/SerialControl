@@ -1,0 +1,131 @@
+<html> 
+<head> 
+  <title>JavaScript串口测试</title>
+  <meta http-equiv="Content-Type" content="text/html"/>
+
+    <script language="JavaScrip" for="Serial" event="OnComm()" type="text/JavaScript">
+        document.getElementById("txtReceive").innerText += Serial.ReadPort();
+    </script>
+ 
+  <script   language="JavaScript"   type="text/JavaScript"> 
+
+   //操作串口
+   function OperatePort()
+   {
+       var isopen = Serial.IsOpen();
+
+       if(isopen==true)
+       {
+           var state = Serial.ClosePort();
+
+           if(state==true)
+           {
+               document.getElementById("OperateButton").value = "打开串口";
+               alert("关闭串口成功");
+           }
+           else
+           {
+               alert("关闭串口失败");
+           }
+       }
+       else
+       {
+           var port = document.getElementById("ComName").value;
+           var state = Serial.OpenPort(port);
+
+           if (state == true)
+           {
+               document.getElementById("OperateButton").value = "关闭串口";
+               alert("打开串口成功");
+           }
+           else
+           {
+               alert("打开串口失败");
+           }
+       }
+
+  }
+ 
+  function ConfigPort()
+  {
+
+  }
+ 
+  //发送
+  function Send()
+  {
+      var str = document.getElementById("txtSend").innerText;
+      alert(str);
+      Serial.WritePort(str);
+  }
+ 
+   //接收
+  function Receive()
+  {   
+   
+  }
+ 
+  function ClearReceived()
+  {
+     document.getElementById("txtReceive").innerText="";
+  } 
+ 
+
+</script>   
+ 
+</head> 
+<body>
+
+<form name="form1">     
+
+
+<fieldset style="width:200px;height:100px;text-align:center;">
+<legend>配置串口</legend>
+    <div style="float:left;width:200px">   
+    <br/>   
+    <span>串口号:</span>
+    <select name="ComName" id="ComName" style="width:75px" >
+        <option value="COM1">COM1</option>
+        <option value="COM2">COM2</option>
+        <option value="COM3" selected>COM3</option>
+        <option value="COM4">COM4</option>
+        <option value="COM5">COM5</option>
+        <option value="COM6">COM6</option>
+        <option value="COM7">COM7</option>  
+    </select>   
+    <br/>
+    <br/>    
+    <input   type="button" id="OperateButton" style="width:80px;height:30px;font-size:13px"   name="OperateButton"   value="打开串口"   onClick="OperatePort()">       
+    </div> 
+</fieldset>
+
+
+
+<fieldset style="width:400px;height:250px;text-align:center;">
+<legend>发送区域</legend>
+<div style="float:left;">
+    <textarea id="txtSend"  name="txtSend" style="width:400px;height:160px"></textarea> 
+    <br/>
+    <input   type="button" id="SendButton" style="width:100px;height:30px"   name="SendButton"   value="发送"   onClick="Send()">   
+</div> 
+</fieldset>
+
+<fieldset style="width:400px;height:250px;text-align:center;">
+<legend>接收区域</legend>   
+<div style="float:left;">
+    <textarea id="txtReceive" READONLY=TRUE  name="txtReceive" style="width:400px;height:160px"></textarea>  
+    <br/>
+    <input  type="button" id="ClearButton" style="width:100px;height:30px"   name="ClearButton"   value="清空"   onClick="ClearReceived()">
+</div>
+</fieldset>   
+
+
+
+
+</form> 
+ 
+<object id=Serial width="0" height="0" classid="clsid:436434F0-F9B7-4F57-825A-A2FBAC860E7E"></object>
+ 
+ 
+</body> 
+</html>  

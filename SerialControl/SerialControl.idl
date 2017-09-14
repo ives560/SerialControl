@@ -1,0 +1,61 @@
+// SerialControl.idl : ActiveX 控件项目的类型库源。
+
+// 此文件将由 MIDL 编译器工具处理以
+// 产生类型库(SerialControl.tlb)，该类型库将成为
+// SerialControl.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+[ uuid(28B5EA74-A67E-47CF-B0F0-F5100FE8134E), version(1.0),
+  control ]
+library SerialControlLib
+{
+	importlib(STDOLE_TLB);
+
+	//  CSerialControlCtrl 的主调度接口
+	[ 
+		uuid(83F42EEB-9C7D-4745-B1D6-C9E53AFBEFD1)	
+	]
+	dispinterface _DSerialControl
+	{
+		properties:
+		methods:
+	};
+
+	//  CSerialControlCtrl 的事件调度接口
+
+	[ 
+		uuid(D3CF1561-AB30-427F-A0A9-6AF19D28D449)	
+	]
+	dispinterface _DSerialControlEvents
+	{
+		properties:
+			//  事件接口没有任何属性
+
+		methods:
+			[id(2)] void SetPort(BSTR port);
+			[id(3)] LONG OpenPort(BSTR port);
+			[id(4)] LONG WritePort(BSTR data);
+			[id(5)] LONG ClosePort();
+			[id(1)] LONG IsOpen();
+			[id(6)] LONG Available();
+			[id(7)] BSTR ReadPort();
+			[id(8)] void SetBaudRate(LONG baudrate);
+			[id(9)] void SetByteSize(LONG bytesize);
+			[id(10)] void SetStopBits(LONG stopbits);
+			[id(11)] void SetParity(LONG parity);
+			[id(12)] void OnComm();
+	};
+
+	//  CSerialControlCtrl 的类信息
+	[
+		uuid(436434F0-F9B7-4F57-825A-A2FBAC860E7E)
+	]
+	coclass SerialControl
+	{
+		[default] dispinterface _DSerialControl;
+		[default, source] dispinterface _DSerialControlEvents;
+	};
+
+};

@@ -1,0 +1,125 @@
+<html> 
+<head> 
+  <title>JavaScript串口测试</title>
+  <meta http-equiv="Content-Type" content="text/html"/>
+
+    <script language="JavaScrip" for="Serial" event="OnComm()" type="text/JavaScript">
+        document.getElementById("txtReceive").innerText = "Receive";
+        document.getElementById("txtReceive").innerText += Serial.ReadPort();
+    </script>
+ 
+  <script   language="JavaScript"   type="text/JavaScript"> 
+
+   function OperatePort()
+   {
+       alert("打开串口");
+       Serial.OpenPort("COM3");
+  }
+ 
+  function ConfigPort()
+  {
+      Serial.SetBaudRate(115200);
+      Serial.SetByteSize(8);
+      Serial.SetStopBits(1);
+      Serial.SetParity(0);
+  }
+ 
+  function Send()
+  {
+      var str = "7375df";
+      alert(str);
+      Serial.WritePort(str);
+  }
+ 
+  function Receive()
+  {   
+   
+  }
+ 
+  function ClearReceived()
+  {
+     document.getElementById("txtReceive").innerText="";
+  } 
+ 
+
+</script>   
+ 
+</head> 
+<body>
+
+<form name="form1">     
+
+
+<fieldset style="width:200px;height:250px;text-align:center;">
+<legend>配置串口</legend>
+    <div style="float:left;width:200px">   
+    <br/>   
+    <span>串口号:</span>
+    <select name="ComName" id="ComName" style="width:75px" >
+    <option value="1"  >COM1</option>
+    <option value="2"  >COM2</option>
+    <option value="3" selected >COM3</option>
+    <option value="4"  >COM4</option>   
+    </select>   
+    <br/>   
+    <span>波特率:</span>
+    <select name="BaudRate" id="BaudRate" style="width:75px" >
+    <option value="9600" selected  >9600</option>
+    <option value="57600"  >57600</option>
+    <option value="115200" >115200</option>   
+    </select>   
+    <br/>
+   
+    <span>校验位:</span>
+    <select name="CheckBit" id="CheckBit" style="width:75px" >
+    <option value="N" selected  >无NONE</option>
+    <option value="O"  >奇ODD</option>
+    <option value="E" >偶EVEN</option>   
+    </select>   
+    <br/>   
+   
+    <span>数据位:</span>
+    <input type=text id="DataBits" name="DataBits" value=8 style="width:75px;height:20px">
+    <br/>
+   
+    <span>停止位:</span>
+    <input type=text id="StopBits" name="StopBits" value=1 style="width:75px;height:20px">
+    <br/>
+    <br/>
+    <input   type="button" id="ConfigButton" style="width:80px;height:30px;font-size:13px"   name="ConfigButton"   value="配置串口"   onClick="ConfigPort()">       
+    <input   type="button" id="OperateButton" style="width:80px;height:30px;font-size:13px"   name="OperateButton"   value="打开串口"   onClick="OperatePort()">       
+    </div> 
+</fieldset>
+
+
+
+<fieldset style="width:200px;height:250px;text-align:center;">
+<legend>发送区域</legend>
+<div style="float:left;">
+    <textarea id="txtSend"  name="txtSend" style="width:200px;height:160px"></textarea> 
+    <br/>
+    <span><input id="isSendHex" name="isSendHex" type="checkbox" checked="0" />16进制</span>
+    <input   type="button" id="SendButton" style="width:100px;height:30px"   name="SendButton"   value="发送"   onClick="Send()">   
+</div> 
+</fieldset>
+
+<fieldset style="width:200px;height:250px;text-align:center;">
+<legend>接收区域</legend>   
+<div style="float:left;">
+    <textarea id="txtReceive" READONLY=TRUE  name="txtReceive" style="width:200px;height:160px"></textarea>  
+    <br/>
+    <span><input id="isReceiveHex" name="isReceiveHex" type="checkbox" />16进制</span>
+    <input  type="button" id="ClearButton" style="width:100px;height:30px"   name="ClearButton"   value="清空"   onClick="ClearReceived()">
+</div>
+</fieldset>   
+
+
+
+
+</form> 
+ 
+<object id=Serial width="0" height="0" classid="clsid:436434F0-F9B7-4F57-825A-A2FBAC860E7E"></object>
+ 
+ 
+</body> 
+</html>  
